@@ -4,7 +4,7 @@ I chose Option 5 to deploy the model to TFServing
 - 2. *TF Lite* 
 - 3. *Deployed the model with TF Serving and using the REST API end point from it*
 # Change made to the code.
-Option chosen: TensorRT inference ,Uploading to TF Serving and TensorflowLite inference
+Option chosen: TensorRT inference ,Uploading to TF Serving and TensorflowLite inference.
 Procedure followed to setup the code:
 - 1.Run the setup given in the repo in any virtual environment.
 - 2.Make changes in the file to accomodate a different data set CIfar10 present in TensorFlow.Keras.
@@ -15,7 +15,7 @@ Procedure followed to setup the code:
 - - Trained the Cifar10 dataset.
 - - - Changed the parameters and class names to create an inference model, This is tested with a random image and the accuracy is around 75%.
 <img width="1296" alt="Screen Shot 2022-11-20 at 10 31 12 AM" src="https://user-images.githubusercontent.com/101368541/202919551-0f8ee7d2-a16c-47c9-9fd1-9cc0acd92595.png">
-
+<img width="656" alt="Screen Shot 2022-11-20 at 1 48 55 PM" src="https://user-images.githubusercontent.com/101368541/202928043-718f0405-86e5-471a-93c8-70e48afad82c.png">
 
 - - - This model is saved and can be used to create TFLite model.
 
