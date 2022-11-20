@@ -5,6 +5,7 @@ from PIL import Image
 import time
 import io
 from numpy import asarray
+from PIL import ImageOps
 #import tflite_runtime.interpreter as tflite
 #ref: https://www.tensorflow.org/lite/guide/get_started https://www.tensorflow.org/lite/guide/inference#load_and_run_a_model_in_python
 #ref: https://github.com/lkk688/AndroidIntelligentApp/blob/main/pythonTFlite/tfliteclassify2.py
@@ -22,7 +23,7 @@ def tflitequanexport(saved_model_dir):
 
     #val_ds=None
     from TFClassifier.Datasetutil.TFdatasetutil import loadTFdataset
-    train_ds, val_ds, class_names, imageshape = loadTFdataset('flower', 'customtfrecordfile', '/home/lkk/Developer/MyRepo/MultiModalClassifier/outputs/TFrecord', 180, 180, 32)
+    train_ds, val_ds, class_names, imageshape = loadTFdataset('Cifar10', 'kerasdataset', '/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/images', 28, 28, 1)
     def representative_data_gen():
         for input_value, _ in val_ds.take(100):
             yield [input_value]
@@ -45,7 +46,7 @@ def tflitequanintexport(saved_model_dir):
 
     #val_ds=None
     from TFClassifier.Datasetutil.TFdatasetutil import loadTFdataset
-    train_ds, val_ds, class_names, imageshape = loadTFdataset('flower', 'customtfrecordfile', '/home/lkk/Developer/MyRepo/MultiModalClassifier/outputs/TFrecord', 180, 180, 32)
+    train_ds, val_ds, class_names, imageshape = loadTFdataset('Cifar10', 'kerasdataset', '/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/images', 28, 28, 1)
     def representative_data_gen():
         for input_value, _ in val_ds.take(100):
             yield [input_value]
@@ -72,9 +73,9 @@ def testtfliteinference(tflite_model_path):
 
     # Get input and output tensors.
     input_details = interpreter.get_input_details()
-    print(input_details)
+    print("input_details",input_details)
     output_details = interpreter.get_output_details()
-    print(output_details)
+    print("output_details",output_details)
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']#[1, 180, 180, 3]
@@ -82,16 +83,23 @@ def testtfliteinference(tflite_model_path):
     floating_model = input_details[0]['dtype'] == np.float32
 
     #image_path='/home/lkk/Developer/MyRepo/MultiModalClassifier/tests/imgdata/sunflower.jpeg'
-    image_path='/home/lkk/Developer/MyRepo/MultiModalClassifier/tests/imgdata/rose2.jpeg'
+    image_path=''
     img_height = input_shape[1] #180
     img_width = input_shape[2] #180
+    print(img_height,img_width)
 
     if floating_model:
         input_data=loadimage(image_path, img_height, img_width)
     else:
         input_data=loadimageint(image_path, img_height, img_width)
 
+    input_data = np.expand_dims(input_data, axis=3)
+    print("\n\n\n\n\n\n\n\ninput_data.shape()",input_data.shape)
+
+   
+    #input_data=ImageOps.grayscale(input_data)
     tensor_index = input_details[0]['index']
+    print("tttt",tensor_index)
     interpreter.set_tensor(tensor_index, input_data)
 
     interpreter.invoke()
@@ -108,24 +116,36 @@ def testtfliteinference(tflite_model_path):
         output = scale * (output - zero_point)
 
     classindex = np.argmax(output, axis=-1)
-    class_names = ['daisy', 'dandelion', 'roses', 'sunflowers', 'tulips']
+    class_names = ['airplane', '	automobile', 'bird', 'cat', 'deer',
+               'dog', 'frog', 'horse', 'ship', 'truck']
     print(class_names[classindex])
 
 def loadimage(path, img_height, img_width):
     # load image
+    # load image
     image = Image.open(path).resize((img_width, img_height))
+    image=ImageOps.grayscale(image)
+
     image = np.array(image)
-    print(np.min(image), np.max(image))#0~255
-    input=image[np.newaxis, ...]
-    input_data = np.array(input, dtype=np.float32)
-    # normalize to the range 0-1
-    input_data /= 255.0
-    print(np.min(input_data), np.max(input_data)) 
+    #Convert uint8 to int8
+    image = image - 127.0
+    image = np.array(image, dtype=np.float32)
+    print(np.min(image), np.max(image))#-128 127
+    #input=image[np.newaxis, ...]
+    # add N dim
+    # input_data=image[np.newaxis,:, :]
+    #input_data = np.expand_dims(image, axis=0)
+    input_data = np.expand_dims(image, axis=0)
+
+    print("\n\n\n\n\n\n\n\ninput_data.shape()",input_data.shape)
     return input_data
 
 def loadimageint(path, img_height, img_width):
     # load image
     image = Image.open(path).resize((img_width, img_height))
+    image=ImageOps.grayscale(image)
+    print(image.shape)
+
     image = np.array(image)
     #Convert uint8 to int8
     image = image - 127.0
@@ -133,17 +153,20 @@ def loadimageint(path, img_height, img_width):
     print(np.min(image), np.max(image))#-128 127
     #input=image[np.newaxis, ...]
     # add N dim
+    #input_data = np.expand_dims(image, axis=0)
     input_data = np.expand_dims(image, axis=0)
-    
+
+    #input_data=input_data[np.newaxis,:, :]
+    print("\n\n\n\n\n\n\n\ninput_data.shape()",input_data.shape)
     return input_data
 
 if __name__ == '__main__':
-    saved_model_dir = '/home/lkk/Developer/MyRepo/MultiModalClassifier/outputs/flower_xceptionmodel1_0712/'
-    #testtfliteexport(saved_model_dir)
-    #tflitequanexport(saved_model_dir)
+    saved_model_dir = '/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/images'
+    testtfliteexport(saved_model_dir)
+    tflitequanexport(saved_model_dir)
     #tflitequanintexport(saved_model_dir)
 
-    #testtfliteinference("converted_model_quant.tflite")#"converted_model.tflite"
-    testtfliteinference("converted_model_quantint.tflite")
+    testtfliteinference("converted_model_quant.tflite")#"converted_model.tflite"
+   # testtfliteinference("converted_model_quantint.tflite")
 
     
