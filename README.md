@@ -11,7 +11,7 @@ Procedure followed to setup the code:
 - 3.Train and generate the model, to see it's accuracy and time required to train, then save the model and convert it to TFLite model and apply inference to compare the accuracy and time.
 - 4.Trained the mode, saved it and uploaded to TF Serving in  colab to execute the code present in apiserving.py file and then used the end point http://localhost:8501/v1/models/saved_model:predict to predict the image and the model predicted the data with most accurately.
 
-## 1.RT Inference
+## 1.TF Inference
 - - Trained the Fashion MNIST dataset.
 - - - Changed the parameters and class names to create an inference model, This is tested with a random image and the accuracy is good with more than 85%.
 - - - This model is saved and can be used to create TFLite model.
