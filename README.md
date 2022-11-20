@@ -7,13 +7,16 @@ I chose Option 5 to deploy the model to TFServing
 Option chosen: TensorRT inference ,Uploading to TF Serving and TensorflowLite inference
 Procedure followed to setup the code:
 - 1.Run the setup given in the repo in any virtual environment.
-- 2.Make changes in the file to accomodate a different data set Fashion MNIST present in TensorFlow.Keras.
+- 2.Make changes in the file to accomodate a different data set CIfar10 present in TensorFlow.Keras.
 - 3.Train and generate the model, to see it's accuracy and time required to train, then save the model and convert it to TFLite model and apply inference to compare the accuracy and time.
 - 4.Trained the mode, saved it and uploaded to TF Serving in  colab to execute the code present in apiserving.py file and then used the end point http://localhost:8501/v1/models/saved_model:predict to predict the image and the model predicted the data with most accurately.
 
 ## 1.TF Inference
-- - Trained the Fashion MNIST dataset.
-- - - Changed the parameters and class names to create an inference model, This is tested with a random image and the accuracy is good with more than 85%.
+- - Trained the Cifar10 dataset.
+- - - Changed the parameters and class names to create an inference model, This is tested with a random image and the accuracy is around 75%.
+<img width="1296" alt="Screen Shot 2022-11-20 at 10 31 12 AM" src="https://user-images.githubusercontent.com/101368541/202919551-0f8ee7d2-a16c-47c9-9fd1-9cc0acd92595.png">
+
+
 - - - This model is saved and can be used to create TFLite model.
 
 ## 2.TF Lite 
@@ -22,7 +25,7 @@ Procedure followed to setup the code:
 
 
 
-- - - Screen shots and changes have been pushed to my git repository.
+- - - Screen shots and changes are available here
 - - - Commits are as follows:
 
 
@@ -33,7 +36,9 @@ Procedure followed to setup the code:
 - - - 2.This would create an output folder inside output/fashion/1. We use this model with our API to make predictions.
 - - - 3.we use the api http://localhost:8501/v1/models/saved_model:predict which will return the prediction.
 - - - 5.apiserving.py has the code related to uploading the model with TF Serving. The model which is saved inside outputs/fashion/1 folder, is done in collab and the screen shots of it are below
+<img width="334" alt="Screen Shot 2022-11-20 at 10 15 53 AM" src="https://user-images.githubusercontent.com/101368541/202919374-95e1fcf6-ee94-4248-94a9-6a899889f670.png">
 
+<img width="877" alt="Screen Shot 2022-11-20 at 10 16 10 AM" src="https://user-images.githubusercontent.com/101368541/202919380-81bb07a1-38ea-4c42-ab4e-6c32fa533d38.png">
 
 
 # MultiModalClassifier
