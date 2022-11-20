@@ -83,7 +83,7 @@ def testtfliteinference(tflite_model_path):
     floating_model = input_details[0]['dtype'] == np.float32
 
     #image_path='/home/lkk/Developer/MyRepo/MultiModalClassifier/tests/imgdata/sunflower.jpeg'
-    image_path=''
+    image_path='/Users/admin/Documents/GitHub/MultiModalClassifier/semi-semitrailer-truck-tractor-highway.webp'
     img_height = input_shape[1] #180
     img_width = input_shape[2] #180
     print(img_height,img_width)
