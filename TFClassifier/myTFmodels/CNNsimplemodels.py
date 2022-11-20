@@ -56,8 +56,7 @@ def create_simplemodelChange(numclasses, img_shape, metrics=['accuracy']):
                     metrics=metrics)
     return model
 
-def create_simplemodel2(numclasses, img_shape, metrics=['sparse_categorical_accuracy']):
-    """Constructs the ML model used to predict handwritten digits."""
+
 
 def create_simplemodel2(numclasses, img_shape, metrics=['sparse_categorical_accuracy']):
     """Constructs the ML model used to predict handwritten digits."""
