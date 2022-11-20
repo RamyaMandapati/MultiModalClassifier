@@ -110,7 +110,7 @@ def main():
 
     model=loadsavedmodel('/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/fashion')
 
-    url='https://cdn.allbirds.com/image/upload/f_auto,q_auto,w_533,b_rgb:f5f5f5/cms/z0Z7JaTiFmKncrgGOxJp7/24a0b02e2071298fe8da4628fcb7c375/Men_s_Wool_Runners_-_Natural_Grey__Light_Grey_Sole__-_imageAngle'#rose
+    url='https://cdn.allbirds.com/image/upload/f_auto,q_auto,w_533,b_rgb:f5f5f5/cms/semi-semitrailer-truck-tractor-highway.webp'#truck
     img_array = PILgetonlineimagearray(url, args.img_height, args.img_width)
 
     pltgetonlineimagearray(url)
