@@ -108,7 +108,7 @@ def inference(infermodel, img_np, class_names):
 
 def main():
 
-    model=loadsavedmodel('/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/fashion')
+    model=loadsavedmodel('/Users/admin/Documents/GitHub/MultiModalClassifier/TFClassifier/outputs/images')
 
     url='https://cdn.allbirds.com/image/upload/f_auto,q_auto,w_533,b_rgb:f5f5f5/cms/semi-semitrailer-truck-tractor-highway.webp'#truck
     img_array = PILgetonlineimagearray(url, args.img_height, args.img_width)
