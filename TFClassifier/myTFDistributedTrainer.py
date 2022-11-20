@@ -1,7 +1,3 @@
-# Distributed training with Keras, colab version: https://colab.research.google.com/drive/13vzRVWJFO0rQy9llgLk_tw6d61O0nu1Y#scrollTo=MfBg1C5NB3X0
-# Import TensorFlow and TensorFlow Datasets
-
-
 import configargparse #pip install configargparse
 import tensorflow as tf
 import PIL
@@ -19,16 +15,16 @@ model = None
 # import logger
 
 parser = configargparse.ArgParser(description='myTFDistributedClassify')
-parser.add_argument('--data_name', type=str, default='fashionMNIST',
-                    help='data name mnist, fashionMNIST')
+parser.add_argument('--data_name', type=str, default='cifar10',
+                    help='data name mnist, cifar10')
 parser.add_argument('--data_type', default='kerasdataset', choices=['tfds', 'kerasdataset', 'imagefolder', 'TFrecord'],
                     help='the type of data')  # gs://cmpelkk_imagetest/*.tfrec
 parser.add_argument('--data_path', type=str, default='/home/kaikai/.keras/datasets/flower_photos',
                     help='path to get data')
-parser.add_argument('--save_path', type=str, default='./outputs/fashion',
+parser.add_argument('--save_path', type=str, default='./outputs/images',
                     help='path to save the model')
 # network
-parser.add_argument('--model_name', default='cnnsimple1', choices=['cnnsimple1', 'cnnsimple2'],
+parser.add_argument('--model_name', default='cnnsimple1', choices=['cnnsimple1', 'cnnsimple2','create_simplemodelChange','create_simplemodelTest1','create_simplemodelTest2'],
                     help='the network')
 parser.add_argument('--arch', default='Tensorflow', choices=['Tensorflow', 'Pytorch'],
                     help='Model Name, default: Tensorflow.')
@@ -195,6 +191,20 @@ def main():
 
     #Export the graph and the variables to the platform-agnostic SavedModel format. After your model is saved, you can load it with or without the scope.
     model.save(args.save_path, save_format='tf')
+    version = 1
+    export_path = os.path.join(args.save_path, str(version))
+    print('export_path = {}\n'.format(export_path))
+
+    tf.keras.models.save_model(
+            model,
+            export_path,
+            overwrite=True,
+            include_optimizer=True,
+            save_format=None,
+            signatures=None,
+            options=None
+    )
+
 
     eval_loss, eval_acc = model.evaluate(val_ds)
     print('Eval loss: {}, Eval Accuracy: {}'.format(eval_loss, eval_acc))
