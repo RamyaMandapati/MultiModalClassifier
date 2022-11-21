@@ -40,6 +40,13 @@ Procedure followed to setup the code:
 
 <img width="877" alt="Screen Shot 2022-11-20 at 10 16 10 AM" src="https://user-images.githubusercontent.com/101368541/202919380-81bb07a1-38ea-4c42-ab4e-6c32fa533d38.png">
 
+Below are the changes made in the files
+* [myTFDistributedTrainerv2.py](./TFClassifier/myTFDistributedTrainerv2.py): main training code - https://github.com/lkk688/MultiModalClassifier/commit/f51c258a1f02ba065a54a1a4736c9a1629049aae
+* [myTFInference.py](./TFClassifier/myTFInference.py): main inference code
+https://github.com/lkk688/MultiModalClassifier/commit/5bc739a2b56ba420d32c8d3e6822d04a6b55abfb
+* [exportTFlite.py](./TFClassifier/exportTFlite.py): convert form TF model to TFlite
+https://github.com/lkk688/MultiModalClassifier/commit/3b487a1b081f2c9f45ad8fce91ac2bd7c12f9503
+
 
 # MultiModalClassifier
 This is a project repo for multi-modal deep learning classifier with popular models from Tensorflow and Pytorch. The goal of these baseline models is to provide a template to build on and can be a starting point for any new ideas, applications. If you want to learn basics of ML and DL, please refer this repo: https://github.com/lkk688/DeepDataMiningLearning.
